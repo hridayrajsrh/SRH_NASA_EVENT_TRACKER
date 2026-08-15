@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}My Watch List{% endblock %}
+
+{% block content %}
+<h1>My Watch List</h1>
+
+{% if events %}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event["title"] }}</td>
+            <td>{{ event["category"] }}</td>
+            <td>{{ event["status"] }}</td>
+            <td>{{ event["event_date"] }}</td>
+            <td>{{ event["note"] or "—" }}</td>
+            <td>
+                <a href="{{ url_for('watch_remove_confirm', id=event['id']) }}">Remove</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Your watch list is empty. <a href="{{ url_for('browse') }}">Browse events</a> to add some.</p>
+{% endif %}
+{% endblock %}

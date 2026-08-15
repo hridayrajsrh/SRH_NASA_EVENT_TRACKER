@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Removal{% endblock %}
+
+{% block content %}
+<h1>Remove from Watch List?</h1>
+<p>Are you sure you want to remove <strong>{{ event["title"] }}</strong> from your watch list?</p>
+
+<form method="post" action="{{ url_for('watch_remove', id=event['id']) }}">
+    <button type="submit">Yes, remove it</button>
+</form>
+<a href="{{ url_for('index') }}">Cancel</a>
+{% endblock %}

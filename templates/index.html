@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}NASA Event Tracker{% endblock %}
+
+{% block content %}
+<h1>NASA Natural Events Tracker</h1>
+<p>Browse live natural events from NASA's EONET API, or start tracking events on your watch list.</p>
+<a href="{{ url_for('browse') }}">Browse Events →</a>
+{% endblock %}

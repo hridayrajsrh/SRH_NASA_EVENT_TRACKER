@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ event.title }}</h1>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% else %}
+<ul class="detail-list">
+    <li><strong>Category:</strong> {{ event.category }}</li>
+    <li><strong>Status:</strong> {{ event.status }}</li>
+    <li><strong>Date:</strong> {{ event.event_date }}</li>
+    <li><strong>Latitude:</strong> {{ event.latitude }}</li>
+    <li><strong>Longitude:</strong> {{ event.longitude }}</li>
+    {% if event.magnitude %}
+        <li><strong>Magnitude:</strong> {{ event.magnitude }} {{ event.mag_unit }}</li>
+    {% endif %}
+    {% if event.source_url %}
+        <li><strong>Source:</strong> <a href="{{ event.source_url }}">{{ event.source_url }}</a></li>
+    {% endif %}
+</ul>
+
+<form method="post" action="{{ url_for('watch_add', eonet_id=event.eonet_id) }}">
+    <button type="submit">Add to Watch List</button>
+</form>
+{% endif %}
+
+<a href="{{ url_for('browse') }}" class="back-link">← Back to Browse</a>
+{% endblock %}

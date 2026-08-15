@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Events{% endblock %}
+
+{% block content %}
+<h1>Browse Natural Events</h1>
+
+<form method="get" action="{{ url_for('browse') }}" class="filters">
+    <label>
+        Category
+        <select name="category">
+            <option value="" {% if category == "" %}selected{% endif %}>All Categories</option>
+            <option value="wildfires" {% if category == "wildfires" %}selected{% endif %}>Wildfires</option>
+            <option value="severeStorms" {% if category == "severeStorms" %}selected{% endif %}>Severe Storms</option>
+            <option value="volcanoes" {% if category == "volcanoes" %}selected{% endif %}>Volcanoes</option>
+            <option value="earthquakes" {% if category == "earthquakes" %}selected{% endif %}>Earthquakes</option>
+            <option value="floods" {% if category == "floods" %}selected{% endif %}>Floods</option>
+        </select>
+    </label>
+
+    <label>
+        Status
+        <select name="status">
+            <option value="open" {% if status == "open" %}selected{% endif %}>Open</option>
+            <option value="closed" {% if status == "closed" %}selected{% endif %}>Closed</option>
+            <option value="all" {% if status == "all" %}selected{% endif %}>All</option>
+        </select>
+    </label>
+
+    <label>
+        Days
+        <input type="number" name="days" value="{{ days }}" min="1" max="365">
+    </label>
+
+    <button type="submit">Filter</button>
+</form>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% else %}
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Coordinates</th>
+            <th>Watch</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td><a href="{{ url_for('event_detail', eonet_id=event.eonet_id) }}">{{ event.title }}</a></td>
+            <td>{{ event.category }}</td>
+            <td>{{ event.status }}</td>
+            <td>{{ event.event_date }}</td>
+            <td>{{ event.latitude }}, {{ event.longitude }}</td>
+            <td>
+                <form method="post" action="{{ url_for('watch_add', eonet_id=event.eonet_id) }}" style="display:inline">
+                    <button type="submit">Add to Watch List</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
