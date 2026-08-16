@@ -6,8 +6,8 @@ A Flask + SQLite web application that tracks real-world natural events using liv
 
 1. Clone this repository and navigate into the project folder:
    ```bash
-   git clone <https://github.com/hridayrajsrh/SRH_NASA_EVENT_TRACKER.git>
-   cd my_project
+   git clone https://github.com/hridayrajsrh/SRH_NASA_EVENT_TRACKER.git
+   cd SRH_NASA_EVENT_TRACKER
    ```
 
 2. Create and activate a virtual environment:
